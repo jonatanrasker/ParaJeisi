@@ -176,8 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentIndex < cards.length - 1) {
             currentIndex++;
             updateCards();
-        };
-        if (currentIndex == cards.length - 1) {
+        }
+        else if (currentIndex == cards.length) {
             const proceed = confirm("Deseja seguir?");
             if (proceed) {
                 window.location.href = "../convite/index.html";
