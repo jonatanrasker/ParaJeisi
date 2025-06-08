@@ -1,35 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="./styles.css">
-        
-    </head> 
-    <body>
-        <div class="container">
-            <div >
-                <h1 class = "header_text">Quer ir no cinema uma última vez comigo?</h1>
-            </div>
-            <div class="gif_container">
-                <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2JiZDR0a3lvMWF4OG8yc3p6Ymdvd3g2d245amdveDhyYmx6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute animated illustration">
-            </div>
-            <div class = "buttons">
-                <button class="btn" id = "yesButton" onclick="nextPage()">Sim</button>
-                <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">Não</button>
-                <script>
-                    function nextPage() {
-                        window.open("https://api.whatsapp.com/send?phone=5567992707269&text=Sim%20(Volte%20para%20pagina%20do%20google%20tem%20surpresa)", "_blank", "noopener,noreferrer");
-                        window.location.href = "sim.html";
-                    }
-                    
-                    function moveButton() {
-                        var x = Math.random() * (window.innerWidth - document.getElementById('noButton').offsetWidth) - 85;
-                        var y = Math.random() * (window.innerHeight - document.getElementById('noButton').offsetHeight) - 48;
-                        document.getElementById('noButton').style.left = `${x}px`;
-                        document.getElementById('noButton').style.top = `${y}px`;
-                    }
-                </script> 
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Cinema?</title>
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        #noButton {
+            position: absolute;
+        }
+    </style>
+</head> 
+<body>
+    <div class="container">
+        <div>
+            <h1 class="header_text">Quer ir no cinema uma última vez comigo?</h1>
         </div>
-       
-    </body> 
+        <div class="gif_container">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2JiZDR0a3lvMWF4OG8yc3p6Ymdvd3g2d245amdveDhyYmx6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute animated illustration">
+        </div>
+        <div class="buttons">
+            <button class="btn" id="yesButton" onclick="nextPage()">Sim</button>
+            <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">Não</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init('heCbYa5dGiZTMBF8z');
+
+        function nextPage() {
+            emailjs.send('service_d3ft8pa', 'template_34gutuq', {
+                date_clicked: new Date().toLocaleString()
+            }).then(function(response) {
+                console.log('Email enviado com sucesso!', response.status, response.text);
+                window.location.href = "sim.html";
+            }, function(error) {
+                console.error('Erro ao enviar o email', error);
+                alert("Houve um erro ao enviar o email. Tente novamente.");
+            });
+        }
+
+        function moveButton() {
+            var btn = document.getElementById('noButton');
+            var x = Math.random() * (window.innerWidth - btn.offsetWidth - 20);
+            var y = Math.random() * (window.innerHeight - btn.offsetHeight - 20);
+            btn.style.left = `${x}px`;
+            btn.style.top = `${y}px`;
+        }
+    </script>
+</body> 
 </html>
